@@ -25,8 +25,18 @@
                       
         </StackPanel>
         <DataGrid Grid.Row="1"
-                  ItemsSource="{Binding Inventories}">
+                  AutoGenerateColumns="False"
+                  ItemsSource="{Binding Inventories}"
+                  SelectedItem="{Binding SelectedInventory}">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="ISBN"
+                                    Binding="{Binding Isbn13}" />
+                <DataGridTextColumn Header="Title"
+                                    Binding="{Binding Isbn13Navigation.Title}" />
+                <DataGridTextColumn Header="Quantity" 
+                                    Binding="{Binding Quantity}" />
                 
+            </DataGrid.Columns>    
             
         </DataGrid>
     </Grid>

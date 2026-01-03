@@ -18,13 +18,29 @@ namespace Bookstore_WPF_EF_ENG.ViewModel
             set
             {
                 _selectedStore = value;
-                RaisePropertyChanged();
+
                 LoadInventories();
+
+                RaisePropertyChanged();// TODO: varför har vi denna, (två st)
                 RaisePropertyChanged("Inventories");
             }
         }
+
         public ObservableCollection<Inventory> Inventories { get; private set; }
 
+        private string? _selectedInventory;
+
+        public string? SelectedInventory
+        {
+            get => _selectedInventory;
+
+            set
+            {
+                _selectedInventory = value;
+                RaisePropertyChanged();
+
+            }
+        }
 
         public MainWindowViewModel() // TODO:denna syncront, temporär- bytt till async senare
         {
@@ -49,9 +65,13 @@ namespace Bookstore_WPF_EF_ENG.ViewModel
 
             Inventories = new ObservableCollection<Inventory>(
                  db.Inventories.Include(i => i.Isbn13Navigation)
+
                  .Where(i => i.Store.Name == SelectedStore).ToList()
 
             );
+
+
+
 
 
         }
