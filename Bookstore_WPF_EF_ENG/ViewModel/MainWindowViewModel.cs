@@ -20,7 +20,7 @@ namespace Bookstore_WPF_EF_ENG.ViewModel
                 _selectedStore = value;
                 RaisePropertyChanged();
                 LoadInventories();
-
+                RaisePropertyChanged("Inventories");
             }
         }
         public ObservableCollection<Inventory> Inventories { get; private set; }
@@ -51,12 +51,7 @@ namespace Bookstore_WPF_EF_ENG.ViewModel
                  db.Inventories.Include(i => i.Isbn13Navigation)
                  .Where(i => i.Store.Name == SelectedStore).ToList()
 
-
-
-
-
-
-             );
+            );
 
 
         }
