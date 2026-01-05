@@ -8,7 +8,15 @@
         mc:Ignorable="d"
         d:DataContext="{d:DesignInstance Type= UI:MainWindowViewModel, IsDesignTimeCreatable=True}"
         Title="MainWindow" Height="450" Width="800">
-    <Grid>
+    
+    <Window.Resources>
+        <Style TargetType="{x:Type TextBlock}" x:Key="RightJusifiedTextCell">
+            <Setter Property="HorizontalAlignment" Value="Stretch" />
+            <Setter Property="TextAlignment" Value="Right" />         
+        </Style>
+    </Window.Resources>
+    
+        <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="50" />
             <RowDefinition Height="*" />
@@ -26,6 +34,14 @@
         </StackPanel>
         <DataGrid Grid.Row="1"
                   AutoGenerateColumns="False"
+                  IsReadOnly="True"
+                  CanUserAddRows="False"
+                  CanUserDeleteRows="False"
+                  CanUserResizeRows="False"
+                  CanUserResizeColumns="False"
+                  CanUserSortColumns="False"
+                  CanUserReorderColumns="False"
+                  
                   ItemsSource="{Binding Inventories}"
                   SelectedItem="{Binding SelectedInventory}">
             <DataGrid.Columns>
@@ -34,7 +50,7 @@
                 <DataGridTextColumn Header="Title"
                                     Binding="{Binding Isbn13Navigation.Title}" />
                 <DataGridTextColumn Header="Quantity" 
-                                    Binding="{Binding Quantity}" />
+                                    Binding="{Binding Quantity}" ElementStyle="{StaticResource RightJusifiedTextCell}"/>
                 
             </DataGrid.Columns>    
             
