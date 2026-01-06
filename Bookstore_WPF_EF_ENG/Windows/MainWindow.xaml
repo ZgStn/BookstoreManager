@@ -49,6 +49,8 @@
                                     Binding="{Binding Isbn13}" />
                 <DataGridTextColumn Header="Title"
                                     Binding="{Binding Isbn13Navigation.Title}" />
+                <DataGridTextColumn Header="Price"
+                                    Binding="{Binding Isbn13Navigation.Price}" />
                 <DataGridTextColumn Header="Quantity" 
                                     Binding="{Binding Quantity}" ElementStyle="{StaticResource RightJusifiedTextCell}"/>
                 

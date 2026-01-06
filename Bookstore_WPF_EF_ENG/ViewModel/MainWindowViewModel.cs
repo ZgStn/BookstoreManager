@@ -31,24 +31,24 @@ namespace Bookstore_WPF_EF_ENG.ViewModel
 
         public ObservableCollection<Book> Books { get; private set; }
 
-        private string? _selectedBook;
+        //private string? _selectedBook;
 
-        public string? SelectedBook
-        {
-            get => _selectedBook;
+        //public string? SelectedBook
+        //{
+        //    get => _selectedBook;
 
-            set
-            {
-                _selectedBook = value;
+        //    set
+        //    {
+        //        _selectedBook = value;
 
-                //LoadInventories();
+        //        //LoadInventories();
 
-                RaisePropertyChanged();
-                // ShowBookDetailsCommand.RaiseCanExecuteChanged();
-                RaisePropertyChanged("Books");
+        //        RaisePropertyChanged();
+        //        // ShowBookDetailsCommand.RaiseCanExecuteChanged();
+        //        RaisePropertyChanged("Books");
 
-            }
-        }
+        //    }
+        //}
 
         public ObservableCollection<Inventory> Inventories { get; private set; }
 
