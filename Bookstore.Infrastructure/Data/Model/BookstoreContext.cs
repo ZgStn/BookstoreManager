@@ -32,8 +32,6 @@ public partial class BookstoreContext : DbContext
         optionsBuilder.UseSqlServer(connectionString);
     }
 
-
-
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         new AuthorEntityTypeConfiguration().Configure(modelBuilder.Entity<Author>());

@@ -67,7 +67,7 @@ namespace Bookstore_WPF_EF_ENG.ViewModel
             }
         }
 
-        public Action<object> ShowBookDetails { get; set; }
+        public Action ShowBookDetails { get; set; }
         public DelegateCommand ShowBookDetailsCommand { get; private set; }
 
         public Action<string> ShowMessage { get; set; }
@@ -78,7 +78,9 @@ namespace Bookstore_WPF_EF_ENG.ViewModel
 
         }
 
-        private void DoShowBookDetails(object obj) => ShowMessage?.Invoke("Button clicked!");//ShowBookDetails(obj);
+        private void DoShowBookDetails(object obj) => ShowBookDetails();
+
+        //private void DoShowBookDetails(object obj) => ShowMessage?.Invoke("Button clicked!");//ShowBookDetails(obj);
 
 
         private bool CanShowBookDetails(object? arg) => SelectedInventory is not null;
