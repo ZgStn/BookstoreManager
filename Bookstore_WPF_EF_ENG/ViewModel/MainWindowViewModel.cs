@@ -22,13 +22,13 @@ namespace Bookstore_WPF_EF_ENG.ViewModel
 
                 LoadInventories();
 
-                RaisePropertyChanged();// TODO: varför har vi denna, (två st)
+                RaisePropertyChanged(); // TODO: varför har vi denna, (två st)
                 RaisePropertyChanged("Inventories");
 
             }
         }
 
-
+        /*
         public ObservableCollection<Book> Books { get; private set; }
 
         private string? _selectedBook;
@@ -48,7 +48,7 @@ namespace Bookstore_WPF_EF_ENG.ViewModel
                 RaisePropertyChanged("Books");
 
             }
-        }
+        }  */
 
         public ObservableCollection<Inventory> Inventories { get; private set; }
 
