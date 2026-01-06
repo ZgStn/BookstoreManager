@@ -13,4 +13,6 @@ public partial class Author
     public DateOnly? DateOfDeath { get; set; }
 
     public virtual ICollection<Book> Books { get; set; } = new List<Book>();
+
+    public string FullName => $"{LastName}, {FirstName}";
 }

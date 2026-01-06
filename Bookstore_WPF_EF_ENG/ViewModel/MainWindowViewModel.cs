@@ -102,8 +102,9 @@ namespace Bookstore_WPF_EF_ENG.ViewModel
             using var db = new BookstoreContext();
 
             Inventories = new ObservableCollection<Inventory>(
-                 db.Inventories.Include(i => i.Isbn13Navigation)
-
+                 db.Inventories
+                 .Include(i => i.Isbn13Navigation)
+                 .ThenInclude(b => b.Author)
                  .Where(i => i.Store.Name == SelectedStore).ToList()
 
             );

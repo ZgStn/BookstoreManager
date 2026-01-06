@@ -21,6 +21,6 @@ public partial class MainWindow : Window
 
     private void OpenBookDetailsWindow()
     {
-        new BookDetailsWindow(viewModel.SelectedInventory.Isbn13Navigation).Show();
+        new BookDetailsWindow(viewModel.SelectedInventory).Show();
     }
 }

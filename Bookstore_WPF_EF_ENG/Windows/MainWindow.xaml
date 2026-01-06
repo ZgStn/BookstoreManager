@@ -51,6 +51,14 @@
                                     Binding="{Binding Isbn13Navigation.Title}" />
                 <DataGridTextColumn Header="Price"
                                     Binding="{Binding Isbn13Navigation.Price}" />
+                <DataGridTextColumn Header="Publishing date"
+                                    Binding="{Binding Isbn13Navigation.PublishingDate}" />
+                <DataGridTextColumn Header="Number of pages"
+                                    Binding="{Binding Isbn13Navigation.NumberOfPages}" />
+                <DataGridTextColumn Header="Author last name"
+                                    Binding="{Binding Isbn13Navigation.Author.LastName}" />
+                <DataGridTextColumn Header="Author first name"
+                                    Binding="{Binding Isbn13Navigation.Author.FirstName}" />
                 <DataGridTextColumn Header="Quantity" 
                                     Binding="{Binding Quantity}" ElementStyle="{StaticResource RightJusifiedTextCell}"/>
                 

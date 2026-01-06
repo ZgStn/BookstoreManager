@@ -6,10 +6,19 @@
         xmlns:local="clr-namespace:Bookstore_WPF_EF_ENG.Windows"
         mc:Ignorable="d"
         xmlns:UI="clr-namespace:Bookstore_WPF_EF_ENG.ViewModel"
-       
-        d:DataContext="{d:DesignInstance Type= UI:BookDetailsViewModel, IsDesignTimeCreatable=True}"
-        Title="BookDetailsWindow" Height="450" Width="800">
+        d:DataContext="{d:DesignInstance Type= UI:BookDetailsViewModel, IsDesignTimeCreatable=False}"
+        Title="Quantity" Height="450" Width="800">
     <Grid>
-        <DataGrid ItemsSource="{Binding Books}"/>
+        <DataGrid 
+            AutoGenerateColumns="False"
+            ItemsSource="{Binding Details}">
+
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Quantity"
+                                    Binding="{Binding Quantity}" />
+            </DataGrid.Columns>
+        </DataGrid>
+        
+        
     </Grid>
 </Window>

@@ -9,10 +9,10 @@ namespace Bookstore_WPF_EF_ENG.Windows
     /// </summary>
     public partial class BookDetailsWindow : Window
     {
-        public BookDetailsWindow(Book book)
+        public BookDetailsWindow(Inventory inventory)
         {
             InitializeComponent();
-            DataContext = new BookDetailsViewModel(book);
+            DataContext = new BookDetailsViewModel(inventory);
         }
     }
 }
