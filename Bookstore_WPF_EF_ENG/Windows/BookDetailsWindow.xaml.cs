@@ -1,16 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
+﻿using System.Windows;
+using Bookstore.Domain;
+using Bookstore_WPF_EF_ENG.ViewModel;
 
 namespace Bookstore_WPF_EF_ENG.Windows
 {
@@ -19,9 +9,10 @@ namespace Bookstore_WPF_EF_ENG.Windows
     /// </summary>
     public partial class BookDetailsWindow : Window
     {
-        public BookDetailsWindow()
+        public BookDetailsWindow(Book book)
         {
             InitializeComponent();
+            DataContext = new BookDetailsViewModel(book);
         }
     }
 }

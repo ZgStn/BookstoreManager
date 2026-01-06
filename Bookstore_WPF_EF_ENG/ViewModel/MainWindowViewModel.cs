@@ -28,7 +28,7 @@ namespace Bookstore_WPF_EF_ENG.ViewModel
             }
         }
 
-        /*
+
         public ObservableCollection<Book> Books { get; private set; }
 
         private string? _selectedBook;
@@ -48,7 +48,7 @@ namespace Bookstore_WPF_EF_ENG.ViewModel
                 RaisePropertyChanged("Books");
 
             }
-        }  */
+        }
 
         public ObservableCollection<Inventory> Inventories { get; private set; }
 

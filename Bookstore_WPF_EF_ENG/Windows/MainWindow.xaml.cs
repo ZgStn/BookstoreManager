@@ -8,10 +8,11 @@ namespace Bookstore_WPF_EF_ENG.Windows;
 /// </summary>
 public partial class MainWindow : Window
 {
+    private MainWindowViewModel viewModel;
     public MainWindow()
     {
         InitializeComponent();
-        DataContext = new MainWindowViewModel()
+        DataContext = viewModel = new MainWindowViewModel()
         {
             ShowBookDetails = OpenBookDetailsWindow,
             ShowMessage = message => MessageBox.Show(message)
@@ -20,6 +21,6 @@ public partial class MainWindow : Window
 
     private void OpenBookDetailsWindow()
     {
-        new BookDetailsWindow().Show();
+        //new BookDetailsWindow(viewModel.SelectedBook).Show();
     }
 }

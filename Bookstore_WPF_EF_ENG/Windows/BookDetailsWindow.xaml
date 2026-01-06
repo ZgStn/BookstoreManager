@@ -5,8 +5,11 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Bookstore_WPF_EF_ENG.Windows"
         mc:Ignorable="d"
+        xmlns:UI="clr-namespace:Bookstore_WPF_EF_ENG.ViewModel"
+       
+        d:DataContext="{d:DesignInstance Type= UI:BookDetailsViewModel, IsDesignTimeCreatable=True}"
         Title="BookDetailsWindow" Height="450" Width="800">
     <Grid>
-        
+        <DataGrid ItemsSource="{Binding Books}"/>
     </Grid>
 </Window>
