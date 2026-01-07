@@ -28,7 +28,7 @@
                       VerticalAlignment="Center" 
                       ItemsSource="{Binding Stores }"
                       SelectedItem="{Binding SelectedStore}" />
-            <Button Content="Show Details" 
+            <Button Content="Show Quantity" 
                     VerticalAlignment="Center"
                     Command="{Binding ShowBookDetailsCommand}"/>
         </StackPanel>
@@ -49,19 +49,21 @@
                                     Binding="{Binding Isbn13}" />
                 <DataGridTextColumn Header="Title"
                                     Binding="{Binding Isbn13Navigation.Title}" />
-                <DataGridTextColumn Header="Price"
-                                    Binding="{Binding Isbn13Navigation.Price}" />
-                <DataGridTextColumn Header="Publishing date"
-                                    Binding="{Binding Isbn13Navigation.PublishingDate}" />
-                <DataGridTextColumn Header="Number of pages"
-                                    Binding="{Binding Isbn13Navigation.NumberOfPages}" />
                 <DataGridTextColumn Header="Author last name"
                                     Binding="{Binding Isbn13Navigation.Author.LastName}" />
                 <DataGridTextColumn Header="Author first name"
                                     Binding="{Binding Isbn13Navigation.Author.FirstName}" />
-                <DataGridTextColumn Header="Quantity" 
-                                    Binding="{Binding Quantity}" ElementStyle="{StaticResource RightJusifiedTextCell}"/>
+                <DataGridTextColumn Header="Price"
+                                    Binding="{Binding Isbn13Navigation.Price}"
+                                    ElementStyle="{StaticResource RightJusifiedTextCell}"/>
+                <DataGridTextColumn Header="Publishing date"
+                                    Binding="{Binding Isbn13Navigation.PublishingDate}"
+                                    ElementStyle="{StaticResource RightJusifiedTextCell}"/>
+                <DataGridTextColumn Header="Number of pages"
+                                    Binding="{Binding Isbn13Navigation.NumberOfPages}"
+                                    ElementStyle="{StaticResource RightJusifiedTextCell}"/>
                 
+      
             </DataGrid.Columns>    
             
         </DataGrid>
