@@ -71,11 +71,10 @@ namespace Bookstore_WPF_EF_ENG.ViewModel
         public DelegateCommand ShowBookDetailsCommand { get; private set; }
 
         public Action<string> ShowMessage { get; set; }
-        public MainWindowViewModel() // TODO:denna syncront, temporär- bytt till async senare
+        public MainWindowViewModel() //TODO:denna syncront, temporär- bytt till async senare
         {
             ShowBookDetailsCommand = new DelegateCommand(DoShowBookDetails, CanShowBookDetails);
             LoadStores();
-
         }
 
         private void DoShowBookDetails(object obj) => ShowBookDetails();
@@ -108,10 +107,6 @@ namespace Bookstore_WPF_EF_ENG.ViewModel
                  .Where(i => i.Store.Name == SelectedStore).ToList()
 
             );
-
-
-
-
 
         }
     }
