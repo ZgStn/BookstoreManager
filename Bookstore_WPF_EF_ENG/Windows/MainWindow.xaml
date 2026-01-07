@@ -40,12 +40,12 @@
                 Grid.Row="1">
             <DataGrid 
                   AutoGenerateColumns="False"
-                  IsReadOnly="True"
-                  CanUserAddRows="False"
-                  CanUserDeleteRows="False"
+                  IsReadOnly="False"
+                  CanUserAddRows="True"
+                  CanUserDeleteRows="True"
                   CanUserResizeRows="False"
                   CanUserResizeColumns="False"
-                  CanUserSortColumns="False"
+                  CanUserSortColumns="True"
                   CanUserReorderColumns="False"
                   SelectionMode="Single"
                   ItemsSource="{Binding Inventories}"
