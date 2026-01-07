@@ -20,9 +20,9 @@ namespace Bookstore_WPF_EF_ENG.ViewModel
             {
                 _selectedStore = value;
 
-                LoadInventories();
+                LoadInventoriesAsync();
 
-                RaisePropertyChanged(); // TODO: varför har vi denna, (två st)
+                //RaisePropertyChanged(); // TODO: varför har vi denna, (två st)
                 RaisePropertyChanged("Inventories");
 
             }
@@ -74,7 +74,7 @@ namespace Bookstore_WPF_EF_ENG.ViewModel
         public MainWindowViewModel() //TODO:denna syncront, temporär- bytt till async senare
         {
             ShowBookDetailsCommand = new DelegateCommand(DoShowBookDetails, CanShowBookDetails);
-            LoadStores();
+            LoadStoresAsync();
         }
 
         private void DoShowBookDetails(object obj) => ShowBookDetails();
@@ -84,7 +84,7 @@ namespace Bookstore_WPF_EF_ENG.ViewModel
 
         private bool CanShowBookDetails(object? arg) => SelectedInventory is not null;
 
-        private async void LoadStores() // TODO: make async 
+        private async Task LoadStoresAsync() // TODO: make async 
         {
             using var db = new BookstoreContext();
 
@@ -92,19 +92,19 @@ namespace Bookstore_WPF_EF_ENG.ViewModel
                await db.Stores.Select(s => s.Name).ToListAsync() //TODO: Behövs det .Distinct() här?
 
             );
-
+            RaisePropertyChanged(nameof(Stores));
             SelectedStore = Stores.FirstOrDefault();
         }
 
-        private void LoadInventories() // TODO: make async
+        private async Task LoadInventoriesAsync() // TODO: make async
         {
             using var db = new BookstoreContext();
 
             Inventories = new ObservableCollection<Inventory>(
-                 db.Inventories
+                 await db.Inventories
                  .Include(i => i.Isbn13Navigation)
                  .ThenInclude(b => b.Author)
-                 .Where(i => i.Store.Name == SelectedStore).ToList()
+                 .Where(i => i.Store.Name == SelectedStore).ToListAsync()
 
             );
 

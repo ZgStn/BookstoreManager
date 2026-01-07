@@ -23,7 +23,10 @@
         </Grid.RowDefinitions>
         <StackPanel Grid.Row="0"
                     Orientation="Horizontal">
-            <ComboBox Width="200"
+            <ComboBox Text="Bookstores"
+                      IsEditable="True"
+                      IsReadOnly="True"
+                      Width="200"
                       Margin="10"
                       VerticalAlignment="Center" 
                       ItemsSource="{Binding Stores }"
