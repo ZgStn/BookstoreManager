@@ -8,7 +8,7 @@ namespace Bookstore_WPF_EF_ENG.ViewModel
     internal class BookDetailsViewModel : ViewModelBase
     {
         public ObservableCollection<Inventory> Details { get; set; } //TODO: vi har samma observablecollection i mainwindowviewmodel, blir det ett problem?
-        public BookDetailsViewModel(Inventory inventory)
+        public BookDetailsViewModel(Inventory inventory) // TODO: make awaited (not in constructor)
         {
             _ = LoadQuantityAsync(inventory.Quantity);
         }

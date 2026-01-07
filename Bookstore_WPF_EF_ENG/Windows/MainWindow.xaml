@@ -7,7 +7,7 @@
         xmlns:UI="clr-namespace:Bookstore_WPF_EF_ENG.ViewModel"
         mc:Ignorable="d"
         d:DataContext="{d:DesignInstance Type= UI:MainWindowViewModel, IsDesignTimeCreatable=True}"
-        Title="MainWindow" Height="450" Width="800">
+        Title="MainWindow" Height="450" Width="900">
     
     <Window.Resources>
         <Style TargetType="{x:Type TextBlock}" x:Key="RightJusifiedTextCell">
@@ -35,7 +35,10 @@
                     VerticalAlignment="Center"
                     Command="{Binding ShowBookDetailsCommand}"/>
         </StackPanel>
-        <DataGrid Grid.Row="1"
+        <Border Padding="10"
+                Margin="10"
+                Grid.Row="1">
+            <DataGrid 
                   AutoGenerateColumns="False"
                   IsReadOnly="True"
                   CanUserAddRows="False"
@@ -49,27 +52,31 @@
                   SelectedItem="{Binding SelectedInventory}">
             <DataGrid.Columns>
                 <DataGridTextColumn Header="ISBN"
-                                    Binding="{Binding Isbn13}" />
+                                    Binding="{Binding Isbn13}" 
+                                    />
                 <DataGridTextColumn Header="Title"
                                     Binding="{Binding Isbn13Navigation.Title}" />
                 <DataGridTextColumn Header="Author last name"
                                     Binding="{Binding Isbn13Navigation.Author.LastName}" />
                 <DataGridTextColumn Header="Author first name"
                                     Binding="{Binding Isbn13Navigation.Author.FirstName}" />
-                <DataGridTextColumn Header="Price"
-                                    Binding="{Binding Isbn13Navigation.Price}"
-                                    ElementStyle="{StaticResource RightJusifiedTextCell}"/>
                 <DataGridTextColumn Header="Publishing date"
                                     Binding="{Binding Isbn13Navigation.PublishingDate}"
                                     ElementStyle="{StaticResource RightJusifiedTextCell}"/>
                 <DataGridTextColumn Header="Number of pages"
                                     Binding="{Binding Isbn13Navigation.NumberOfPages}"
                                     ElementStyle="{StaticResource RightJusifiedTextCell}"/>
-                
+                <DataGridTextColumn Header="Price"
+                                    Binding="{Binding Isbn13Navigation.Price}"
+                                    ElementStyle="{StaticResource RightJusifiedTextCell}"/>
+                <DataGridTextColumn Header="Quantity"
+                                    Binding="{Binding Quantity}"
+                                    ElementStyle="{StaticResource RightJusifiedTextCell}"/>
       
             </DataGrid.Columns>    
             
         </DataGrid>
+        </Border>
     </Grid>
 </Window>
 
