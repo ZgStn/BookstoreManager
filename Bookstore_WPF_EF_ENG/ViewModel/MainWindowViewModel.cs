@@ -28,10 +28,24 @@ namespace Bookstore_WPF_EF_ENG.ViewModel
             }
         }
 
-        public Book? AddedBook { get; set; }
+        private Book? _addedBook;
+
+        public Book? AddedBook
+        {
+            get => _addedBook;
+            set
+            {
+                _addedBook = value;
+                RaisePropertyChanged();
+                AddBookCommand.RaiseCanExecuteChanged();
+            }
+        }
+
         public int NewQuantity { get; set; }
 
-        public DelegateCommand AddBookCommand { get; }
+        public DelegateCommand AddBookCommand { get; } 
+        
+        //public DelegateCommand AddNewBookCommand { get; } // TODO: for extra credit
 
         public ObservableCollection<Book> Books { get; set; }
 
@@ -92,17 +106,18 @@ namespace Bookstore_WPF_EF_ENG.ViewModel
         {
             var newInventory = new Inventory()
             {
-               Isbn13Navigation = AddedBook,
-               Quantity = NewQuantity
+                Isbn13 = AddedBook!.Isbn13,
+               Isbn13Navigation = AddedBook
+                //Quantity = NewQuantity
             };
 
             Inventories.Add(newInventory);
 
             AddedBook = null;
-            NewQuantity = 0;
+            //NewQuantity = 0;
 
             RaisePropertyChanged(nameof(AddedBook));
-            RaisePropertyChanged(nameof(NewQuantity));
+            //RaisePropertyChanged(nameof(NewQuantity));
 
         }
 

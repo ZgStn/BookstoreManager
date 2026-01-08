@@ -83,13 +83,17 @@
                     Orientation="Horizontal"
                     Margin="10"
                     >
-            <ComboBox ItemsSource="{Binding Books}"
+            <ComboBox 
+              ItemsSource="{Binding Books}"
               SelectedItem="{Binding AddedBook}"
               DisplayMemberPath="Title"
               IsEditable="True"
               IsReadOnly="True"
               Text="Available books" />
 
+            <Button Content="Add"
+                    Margin="10, 0, 0, 0"
+                    Command="{Binding AddBookCommand}"/>
         </StackPanel>
     </Grid>
 </Window>
