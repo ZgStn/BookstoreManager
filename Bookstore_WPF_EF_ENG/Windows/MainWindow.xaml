@@ -41,9 +41,9 @@
                 Grid.Row="1">
             <DataGrid 
                   AutoGenerateColumns="False"
-                  IsReadOnly="False"
-                  CanUserAddRows="True"
-                  CanUserDeleteRows="True"
+                  IsReadOnly="True"
+                  CanUserAddRows="False"
+                  CanUserDeleteRows="False"
                   CanUserResizeRows="False"
                   CanUserResizeColumns="False"
                   CanUserSortColumns="True"
@@ -84,7 +84,7 @@
                     Margin="10"
                     >
             <ComboBox 
-              ItemsSource="{Binding Books}"
+              ItemsSource="{Binding AvailableBooks}"
               SelectedItem="{Binding AddedBook}"
               DisplayMemberPath="Title"
               IsEditable="True"

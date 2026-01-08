@@ -8,7 +8,7 @@ namespace Bookstore_WPF_EF_ENG.ViewModel
 {
     internal class MainWindowViewModel : ViewModelBase
     {
-        public ObservableCollection<string> Stores { get; private set; }
+        public ObservableCollection<string> Stores { get; private set; } = new();
 
         private string? _selectedStore;
 
@@ -19,12 +19,10 @@ namespace Bookstore_WPF_EF_ENG.ViewModel
             set
             {
                 _selectedStore = value;
+                RaisePropertyChanged(); 
 
                 _ = LoadInventoriesAsync();
-
-                //RaisePropertyChanged(); // TODO: varför har vi denna, (två st)
-                RaisePropertyChanged("Inventories");
-
+                AddBookCommand.RaiseCanExecuteChanged();
             }
         }
 
@@ -88,7 +86,22 @@ namespace Bookstore_WPF_EF_ENG.ViewModel
         public Action ShowBookDetails { get; set; }
         public DelegateCommand ShowBookDetailsCommand { get; private set; }
 
-        public Action<string> ShowMessage { get; set; }
+        //public Action<string> ShowMessage { get; set; }
+
+        public ObservableCollection<Book> AvailableBooks 
+        {
+            get
+            {
+                if (Books == null || Inventories == null)
+                    return new ObservableCollection<Book>();
+
+                var availableToAdd = Books
+                                .Where(b => !Inventories.Any(i => i.Isbn13 == b.Isbn13))
+                                .ToList();
+
+                return new ObservableCollection<Book>(availableToAdd);
+            } }
+
         public MainWindowViewModel() //TODO:denna syncront, temporär- bytt till async senare
         {
             ShowBookDetailsCommand = new DelegateCommand(DoShowBookDetails, CanShowBookDetails);
@@ -106,20 +119,24 @@ namespace Bookstore_WPF_EF_ENG.ViewModel
         {
             var newInventory = new Inventory()
             {
-               Isbn13 = AddedBook!.Isbn13,
-               Isbn13Navigation = AddedBook
+                Isbn13 = AddedBook!.Isbn13,
+                Isbn13Navigation = AddedBook
                 //Quantity = NewQuantity
             };
 
             Inventories.Add(newInventory);
 
-          
+
             //NewQuantity = 0;
             //AvailableBooksPlaceholder = "Available book";
             RaisePropertyChanged(nameof(AddedBook));
             //RaisePropertyChanged(nameof(NewQuantity));
 
         }
+
+
+
+
 
         //private string _availableBooksPlaceholder;     
 
@@ -173,6 +190,7 @@ namespace Bookstore_WPF_EF_ENG.ViewModel
             );
 
             RaisePropertyChanged(nameof(Inventories));
+            RaisePropertyChanged(nameof(AvailableBooks));
 
         }
 
@@ -186,6 +204,7 @@ namespace Bookstore_WPF_EF_ENG.ViewModel
                     .ToListAsync()
                     );
             RaisePropertyChanged(nameof(Books));
+            RaisePropertyChanged(nameof(AvailableBooks));
         }
     }
 }
