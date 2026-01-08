@@ -106,20 +106,34 @@ namespace Bookstore_WPF_EF_ENG.ViewModel
         {
             var newInventory = new Inventory()
             {
-                Isbn13 = AddedBook!.Isbn13,
+               Isbn13 = AddedBook!.Isbn13,
                Isbn13Navigation = AddedBook
                 //Quantity = NewQuantity
             };
 
             Inventories.Add(newInventory);
 
-            AddedBook = null;
+          
             //NewQuantity = 0;
-
+            //AvailableBooksPlaceholder = "Available book";
             RaisePropertyChanged(nameof(AddedBook));
             //RaisePropertyChanged(nameof(NewQuantity));
 
         }
+
+        //private string _availableBooksPlaceholder;     
+
+        //public string AvailableBooksPlaceholder
+        //{
+        //    get => _availableBooksPlaceholder; 
+        //    set 
+        //    { 
+        //        _availableBooksPlaceholder = value;
+        //        RaisePropertyChanged();
+        //    }
+        //}
+
+        //public Book PlaceHolderBook { get; } = new Book { Title = "Available books" };
 
         private async Task InitializeAsync()
         {
