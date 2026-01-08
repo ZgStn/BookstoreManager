@@ -54,8 +54,22 @@
                 <DataGridTextColumn Header="ISBN"
                                     Binding="{Binding Isbn13}" 
                                     />
-                <DataGridTextColumn Header="Title"
-                                    Binding="{Binding Isbn13Navigation.Title}" />
+                    <DataGridTemplateColumn Header="Title">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <TextBlock Text="{Binding Isbn13Navigation.Title}" />
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+
+                        <DataGridTemplateColumn.CellEditingTemplate>
+                            <DataTemplate>
+                                <ComboBox 
+                                          SelectedItem="{Binding }"
+                                          DisplayMemberPath="Title"
+                                          IsEditable="False"/>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellEditingTemplate>
+                    </DataGridTemplateColumn>
                 <DataGridTextColumn Header="Author last name"
                                     Binding="{Binding Isbn13Navigation.Author.LastName}" />
                 <DataGridTextColumn Header="Author first name"
