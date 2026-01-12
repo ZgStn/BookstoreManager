@@ -7,7 +7,7 @@
         xmlns:UI="clr-namespace:Bookstore_WPF_EF_ENG.ViewModel"
         mc:Ignorable="d"
         d:DataContext="{d:DesignInstance Type= UI:MainWindowViewModel, IsDesignTimeCreatable=True}"
-        Title="MainWindow" Height="450" Width="900">
+        Title="BookstoreManager" Height="450" Width="900">
     
     <Window.Resources>
         <Style TargetType="{x:Type TextBlock}" x:Key="RightJusifiedTextCell">
@@ -61,12 +61,10 @@
             <DataGrid.Columns>
                 <DataGridTextColumn Header="ISBN"
                                     Binding="{Binding Isbn13}" />
-                <DataGridTextColumn Header="Title"
+                    <DataGridTextColumn Header="Title"
                                     Binding="{Binding Isbn13Navigation.Title}" />
-                    <DataGridTextColumn Header="Author last name"
-                                    Binding="{Binding Isbn13Navigation.Author.LastName}" />
-                <DataGridTextColumn Header="Author first name"
-                                    Binding="{Binding Isbn13Navigation.Author.FirstName}" />
+                    <DataGridTextColumn Header="Author name"
+                                    Binding="{Binding Isbn13Navigation.Author.FullName}" />
                 <DataGridTextColumn Header="Publishing date"
                                     Binding="{Binding Isbn13Navigation.PublishingDate}"
                                     ElementStyle="{StaticResource RightJusifiedTextCell}"/>

@@ -1,31 +1,28 @@
-﻿using System.Collections.ObjectModel;
-using System.Threading.Tasks;
-using Bookstore.Domain;
-using Bookstore.Infrastructure.Data.Model;
+﻿using Bookstore.Domain;
 using Bookstore.Infrastructure.Service;
 using Bookstore_WPF_EF_ENG.Command;
-using Microsoft.EntityFrameworkCore;
+using System.Collections.ObjectModel;
 
 namespace Bookstore_WPF_EF_ENG.ViewModel
 {
     internal class MainWindowViewModel : ViewModelBase
     {
         private readonly BookstoreService _bookstoreService = new();
-        public MainWindowViewModel() //TODO:denna syncront, temporär- bytt till async senare
+
+        public MainWindowViewModel()
         {
-            
             ShowBookDetailsCommand = new DelegateCommand(DoShowBookDetails, CanShowBookDetails);
             AddBookCommand = new DelegateCommand(ExecuteAddBook, CanAddBook);
             SaveChangesCommand = new DelegateCommand(
                 async _ => await SaveChangesAsync(),
-                _ => _db.ChangeTracker.HasChanges());
+                _ => _bookstoreService.HasChanges());
 
             _ = InitializeAsync();
         }
 
         private async Task SaveChangesAsync()
         {
-            await _db.SaveChangesAsync();
+            await _bookstoreService.SaveChangesAsync();
             RaisePropertyChanged(nameof(AvailableBooks));
             SaveChangesCommand.RaiseCanExecuteChanged();
         }
@@ -42,7 +39,7 @@ namespace Bookstore_WPF_EF_ENG.ViewModel
             set
             {
                 _selectedStore = value;
-                RaisePropertyChanged(); 
+                RaisePropertyChanged();
 
                 _ = LoadInventoriesAsync();
                 AddBookCommand.RaiseCanExecuteChanged();
@@ -64,8 +61,8 @@ namespace Bookstore_WPF_EF_ENG.ViewModel
 
         //public int NewQuantity { get; set; }
 
-        public DelegateCommand AddBookCommand { get; } 
-        
+        public DelegateCommand AddBookCommand { get; }
+
         //public DelegateCommand AddNewBookCommand { get; } // TODO: for extra credit
 
         public ObservableCollection<Book> Books { get; set; }
@@ -108,11 +105,13 @@ namespace Bookstore_WPF_EF_ENG.ViewModel
         }
 
         public Action ShowBookDetails { get; set; }
+
+
         public DelegateCommand ShowBookDetailsCommand { get; private set; }
 
         //public Action<string> ShowMessage { get; set; }
 
-        public ObservableCollection<Book> AvailableBooks 
+        public ObservableCollection<Book> AvailableBooks
         {
             get
             {
@@ -124,9 +123,10 @@ namespace Bookstore_WPF_EF_ENG.ViewModel
                                 .ToList();
 
                 return new ObservableCollection<Book>(availableToAdd);
-            } }
+            }
+        }
 
-        
+
 
         private bool CanAddBook(object? arg)
         {
@@ -141,8 +141,10 @@ namespace Bookstore_WPF_EF_ENG.ViewModel
 
         private async Task AddBookAsync()
         {
-            var store = await _db.Stores
-                .FirstAsync(s => s.Name == SelectedStore);
+            // TODO: protect against SelectedStore = null (make AddButton non-clickable
+            // and/or here add if (SelectedStore = null) return
+            var store = await _bookstoreService.GetStoreByNameAsync(SelectedStore);
+
 
             var newInventory = new Inventory()
             {
@@ -152,7 +154,7 @@ namespace Bookstore_WPF_EF_ENG.ViewModel
                 //Quantity = NewQuantity
             };
 
-            _db.Inventories.Add(newInventory);
+            _bookstoreService.AddInventory(newInventory);
             Inventories.Add(newInventory);
             AddedBook = null;
             RaisePropertyChanged(nameof(AddedBook));
@@ -197,9 +199,7 @@ namespace Bookstore_WPF_EF_ENG.ViewModel
         private async Task LoadStoresAsync()
         {
             Stores = new ObservableCollection<string>(
-               await _db.Stores
-               .Select(s => s.Name)
-               .ToListAsync()
+               await _bookstoreService.GetStoresAsync()
 
             );
             RaisePropertyChanged(nameof(Stores));
@@ -209,11 +209,7 @@ namespace Bookstore_WPF_EF_ENG.ViewModel
         private async Task LoadInventoriesAsync()
         {
             Inventories = new ObservableCollection<Inventory>(
-                 await _db.Inventories
-                 .Include(i => i.Isbn13Navigation)
-                 .ThenInclude(b => b.Author)
-                 .Where(i => i.Store.Name == SelectedStore)
-                 .ToListAsync()
+                 await _bookstoreService.GetInventoriesAsync(SelectedStore)
 
             );
 
@@ -226,10 +222,7 @@ namespace Bookstore_WPF_EF_ENG.ViewModel
         private async Task LoadBooksAsync()
         {
             Books = new ObservableCollection<Book>(
-                await _db.Books
-                    .Include(b => b.Author)
-                    .ToListAsync()
-                    );
+                await _bookstoreService.GetBooksWithAuthorsAsync());
 
             RaisePropertyChanged(nameof(Books));
             RaisePropertyChanged(nameof(AvailableBooks));
