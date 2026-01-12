@@ -2,6 +2,7 @@
 using System.Threading.Tasks;
 using Bookstore.Domain;
 using Bookstore.Infrastructure.Data.Model;
+using Bookstore.Infrastructure.Service;
 using Bookstore_WPF_EF_ENG.Command;
 using Microsoft.EntityFrameworkCore;
 
@@ -9,11 +10,10 @@ namespace Bookstore_WPF_EF_ENG.ViewModel
 {
     internal class MainWindowViewModel : ViewModelBase
     {
-        private readonly BookstoreContext _db;
-
+        private readonly BookstoreService _bookstoreService = new();
         public MainWindowViewModel() //TODO:denna syncront, temporär- bytt till async senare
         {
-            _db = new BookstoreContext();
+            
             ShowBookDetailsCommand = new DelegateCommand(DoShowBookDetails, CanShowBookDetails);
             AddBookCommand = new DelegateCommand(ExecuteAddBook, CanAddBook);
             SaveChangesCommand = new DelegateCommand(
