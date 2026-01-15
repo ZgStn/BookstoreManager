@@ -1,4 +1,5 @@
 ﻿using Bookstore.Domain;
+using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 
@@ -28,7 +29,15 @@ public partial class BookstoreContext : DbContext
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     {
         var config = new ConfigurationBuilder().AddUserSecrets<BookstoreContext>().Build();
-        var connectionString = config["ConnectionString"];
+
+        var connectionString = new SqlConnectionStringBuilder()
+        {
+            DataSource = config["ServerName"],
+            InitialCatalog = config["DatabaseName"],
+            IntegratedSecurity = true,
+            TrustServerCertificate = true
+        }.ToString();
+
         optionsBuilder.UseSqlServer(connectionString);
     }
 
