@@ -1,12 +1,19 @@
-﻿using Bookstore.Domain;
+﻿using System.Collections.ObjectModel;
+using Bookstore.Domain;
 using Bookstore.Infrastructure.Service;
 using Bookstore.Presentation.Command;
-using System.Collections.ObjectModel;
 
 namespace Bookstore.Presentation.ViewModel
 {
     internal class MainWindowViewModel : ViewModelBase
     {
+
+
+        public DelegateCommand NewBookCommand { get; set; }
+
+
+
+
         private readonly BookstoreService _bookstoreService = new();
         public DelegateCommand SaveChangesCommand { get; }
         public ObservableCollection<string> Stores { get; private set; } = new();
@@ -91,14 +98,31 @@ namespace Bookstore.Presentation.ViewModel
         public MainWindowViewModel()
         {
             // TODO: use or discard?
-            //ShowBookDetailsCommand = new DelegateCommand(ExecuteShowBookDetails, CanShowBookDetails);
+            ShowBookDetailsCommand = new DelegateCommand(ExecuteShowBookDetails, CanShowBookDetails);
             AddBookCommand = new DelegateCommand(ExecuteAddBook, CanAddBook);
             RemoveBookCommand = new DelegateCommand(ExecuteRemoveBook, CanRemoveBook);
+            NewBookCommand = new DelegateCommand(ExecuteNewBook, CanNewBook);
             SaveChangesCommand = new DelegateCommand(
                 async _ => await SaveChangesAsync(),
                 _ => _bookstoreService.HasChanges());
 
             _ = InitializeAsync();
+        }
+
+        private bool CanNewBook(object? arg)
+        {
+            return SelectedStore != null;
+
+        }
+
+        private async void ExecuteNewBook(object? obj)
+        {
+            await NewBookAsync();
+        }
+
+        private async Task NewBookAsync()
+        {
+            throw new NotImplementedException();
         }
 
         private bool CanRemoveBook(object? arg)
@@ -176,6 +200,7 @@ namespace Bookstore.Presentation.ViewModel
 
 
         // TODO: use or discard?
+
         //private string _availableBooksPlaceholder;     
 
         //public string AvailableBooksPlaceholder
@@ -197,9 +222,9 @@ namespace Bookstore.Presentation.ViewModel
         }
 
         // TODO: use or discard?
-        //private void ExecuteShowBookDetails(object obj) => ShowBookDetails();
+        private void ExecuteShowBookDetails(object obj) => ShowBookDetails();
 
-        //private bool CanShowBookDetails(object? arg) => SelectedInventory is not null;
+        private bool CanShowBookDetails(object? arg) => SelectedInventory is not null;
 
         private async Task LoadStoresAsync()
         {
@@ -233,5 +258,8 @@ namespace Bookstore.Presentation.ViewModel
             RaisePropertyChanged(nameof(AvailableBooks));
             SaveChangesCommand.RaiseCanExecuteChanged();
         }
+
+
+
     }
 }
