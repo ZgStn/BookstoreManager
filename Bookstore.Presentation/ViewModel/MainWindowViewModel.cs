@@ -50,7 +50,6 @@ namespace Bookstore.Presentation.ViewModel
                 _selectedBook = value;
 
                 RaisePropertyChanged();
-                ShowBookDetailsCommand.RaiseCanExecuteChanged();
                 RaisePropertyChanged("Books");
             }
         }
@@ -65,14 +64,12 @@ namespace Bookstore.Presentation.ViewModel
             {
                 _selectedInventory = value;
                 RaisePropertyChanged();
-                ShowBookDetailsCommand.RaiseCanExecuteChanged();
+
                 SaveChangesCommand.RaiseCanExecuteChanged();
                 RemoveBookCommand.RaiseCanExecuteChanged();
             }
         }
 
-        public Action ShowBookDetails { get; set; }
-        public DelegateCommand ShowBookDetailsCommand { get; private set; }
         public ObservableCollection<Book> AvailableBooks
         {
             get
@@ -91,8 +88,6 @@ namespace Bookstore.Presentation.ViewModel
         public DelegateCommand RemoveBookCommand { get; set; }
         public MainWindowViewModel()
         {
-            // TODO: use or discard?
-            ShowBookDetailsCommand = new DelegateCommand(ExecuteShowBookDetails, CanShowBookDetails);
             AddBookCommand = new DelegateCommand(ExecuteAddBook, CanAddBook);
             RemoveBookCommand = new DelegateCommand(ExecuteRemoveBook, CanRemoveBook);
             AddNewBookCommand = new DelegateCommand(ExecuteAddNewBook, CanAddNewBook);
@@ -187,38 +182,14 @@ namespace Bookstore.Presentation.ViewModel
             AddedBook = null;
             RaisePropertyChanged(nameof(AddedBook));
             SaveChangesCommand.RaiseCanExecuteChanged();
-
-            // TODO: use or discard? AvailableBooksPlaceholder = "Available book";
         }
-
-
-        // TODO: use or discard?
-
-        //private string _availableBooksPlaceholder;     
-
-        //public string AvailableBooksPlaceholder
-        //{
-        //    get => _availableBooksPlaceholder; 
-        //    set 
-        //    { 
-        //        _availableBooksPlaceholder = value;
-        //        RaisePropertyChanged();
-        //    }
-        //}
-
-        //public Book PlaceHolderBook { get; } = new Book { Title = "Available books" };
 
         private async Task InitializeAsync()
         {
             await LoadStoresAsync();
             await LoadBooksAsync();
         }
-
-        // TODO: use or discard?
-        private void ExecuteShowBookDetails(object obj) => ShowBookDetails();
-
-        private bool CanShowBookDetails(object? arg) => SelectedInventory is not null;
-
+      
         private async Task LoadStoresAsync()
         {
             Stores = new ObservableCollection<string>(

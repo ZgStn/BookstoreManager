@@ -12,15 +12,8 @@ public partial class MainWindow : Window
     public MainWindow()
     {
         InitializeComponent();
-        DataContext = viewModel = new MainWindowViewModel()
-        {
-            ShowBookDetails = OpenBookDetailsWindow,
-            //ShowMessage = message => MessageBox.Show(message)
-        };
+        DataContext = viewModel = new MainWindowViewModel();
     }
 
-    private void OpenBookDetailsWindow()
-    {
-        new BookDetailsWindow(viewModel.SelectedInventory).Show();
-    }
+    
 }

@@ -15,8 +15,3 @@ public partial class Inventory
 
     public virtual Store Store { get; set; } = null!;
 }
-
-public partial class Inventory
-{   
-    // TODO: IsValidPrice >= 1 ?
-}
