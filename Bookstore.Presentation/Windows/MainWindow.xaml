@@ -24,27 +24,26 @@
         </Grid.RowDefinitions>
         <StackPanel Grid.Row="0"
                     Orientation="Horizontal">
-            
-            <ComboBox Text="Bookstores"
-                      IsEditable="True"
+            <Label Margin="10,10,0,10">Store</Label>
+            <ComboBox IsEditable="True"
                       IsReadOnly="True"
                       Width="200"
                       Margin="10"
                       VerticalAlignment="Center" 
                       ItemsSource="{Binding Stores }"
                       SelectedItem="{Binding SelectedStore}" />
-
-            <ComboBox 
-                      Text="Central catalog" 
-                      IsEditable="True"
-                      IsReadOnly="True"
-                      Width="200"
-                      Margin="10"
-                      VerticalAlignment="Center"
-                      ItemsSource="{Binding AvailableBooks}"
-                      SelectedItem="{Binding AddedBook}"
-                      DisplayMemberPath="Title" />
-
+            
+                <Label Margin="0,10,0,10">Central catalog</Label>
+                <ComboBox 
+                       IsEditable="True"
+                       IsReadOnly="True"
+                       Width="150"
+                        Margin="10"
+                       VerticalAlignment="Center"
+                       ItemsSource="{Binding AvailableBooks}"
+                       SelectedItem="{Binding AddedBook}"
+                       DisplayMemberPath="Title" />
+            
             <Button Content="Add to bookstore"
                     VerticalAlignment="Center"
                     Margin="10"
@@ -65,10 +64,10 @@
                     Margin="10"
                     Command="{Binding SaveChangesCommand}"/>
             
-            <Button Content="Add new book"
+            <!--<Button Content="Add new book"
                     VerticalAlignment="Center"
                     Margin="10"
-                    Command="{Binding AddNewBookCommand}" />
+                    Command="{Binding AddNewBookCommand}" />-->
         </StackPanel>
             
         <Border Padding="10"
